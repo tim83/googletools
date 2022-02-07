@@ -44,3 +44,9 @@ def obtain_credentials() -> Credentials:
             token.write(credentials.to_json())
 
     return credentials
+
+
+if __name__ == "__main__":
+    print("Refreshing Google credentials ...")
+    obtain_credentials()
+    print("Done.")
