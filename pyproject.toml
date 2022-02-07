@@ -6,6 +6,12 @@ authors = ["Tim Mees <tim.mees83@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pandas = "^1.4.0"
+google-api-core = "^2.5.0"
+google-auth-httplib2 = "^0.1.0"
+google-auth-oauthlib = "^0.4.6"
+google-api-python-client = "^2.36.0"
+xdg = "^5.1.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
