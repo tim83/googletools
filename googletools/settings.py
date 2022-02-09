@@ -3,9 +3,9 @@ from pathlib import Path
 import xdg
 
 PROJECT_DIR: Path = Path(__file__).parent.parent
-CACHE_DIR: Path = xdg.XDG_CACHE_HOME / "googletools"
+CACHE_DIR: Path = xdg.xdg_cache_home() / "googletools"
 
-CONFIG_DIR: Path = xdg.XDG_CONFIG_HOME / "googletools"
+CONFIG_DIR: Path = xdg.xdg_config_home() / "googletools"
 if not CONFIG_DIR.is_dir():
     code_src_config_dir: Path = PROJECT_DIR / "config"
     if code_src_config_dir.is_dir():
