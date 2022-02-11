@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "googletools"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["Tim Mees <tim.mees83@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 pandas = "^1.4.0"
 google-api-core = "^2.5.0"
 google-auth-httplib2 = "^0.1.0"
