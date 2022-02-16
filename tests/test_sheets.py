@@ -3,7 +3,9 @@
 import pandas as pd
 
 import googletools.sheets
-import tests.data
+
+TEST_SHEET_ID = "1FdGvHITMbk_DyONFmE00IcZY79He2SWNUT35klXJu40"
+IMPORT_RANGE = "Import Data!A1:F6"
 
 
 def test_google_import_spreadsheet():
@@ -21,14 +23,14 @@ def test_google_import_spreadsheet():
         ]
     )
     google_data_noheaders = googletools.sheets.import_spreadsheet(
-        tests.data.TEST_SHEET_ID,
-        tests.data.IMPORT_RANGE,
+        TEST_SHEET_ID,
+        IMPORT_RANGE,
         column_header=False,
         row_index=False,
     )
     google_data_headers = googletools.sheets.import_spreadsheet(
-        tests.data.TEST_SHEET_ID,
-        tests.data.IMPORT_RANGE,
+        TEST_SHEET_ID,
+        IMPORT_RANGE,
         column_header=True,
         row_index=True,
     )
