@@ -3,11 +3,15 @@ from __future__ import annotations
 import typing
 from pathlib import Path
 
+import google.auth.exceptions
+import timtools.log
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 import googletools.settings
+
+logger = timtools.log.get_logger("googletools.credentials")
 
 SCOPES: list[str] = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -15,7 +19,7 @@ SCOPES: list[str] = [
 ]
 
 
-def obtain_credentials() -> Credentials:
+def obtain_credentials(attempt: int = 0) -> Credentials:
     """Logs the user in and returns the credentials"""
 
     token_file: Path = googletools.settings.CACHE_DIR / "google_token.json"
@@ -28,7 +32,15 @@ def obtain_credentials() -> Credentials:
     # If there are no (valid) credentials available, let the user log in.
     if not credentials or not credentials.valid:
         if credentials and credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
+            try:
+                credentials.refresh(Request())
+            except google.auth.exceptions.RefreshError as e:
+                if e.args[1]["error"] == "invalid_grant" and attempt == 0:
+                    token_file.unlink()
+                    obtain_credentials(attempt=attempt + 1)
+                    logger.error("Error refreshing credentials, obtaining new ones.")
+                else:
+                    raise e
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 str(googletools.settings.GOOGLE_CLIENT_SECRET_FILE), SCOPES
