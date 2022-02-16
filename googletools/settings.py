@@ -1,11 +1,11 @@
 from pathlib import Path
 
-import xdg
+import timtools.locations
 
 PROJECT_DIR: Path = Path(__file__).parent.parent
-CACHE_DIR: Path = xdg.xdg_cache_home() / "googletools"
+CACHE_DIR: Path = timtools.locations.get_user_cache_dir() / "googletools"
 
-CONFIG_DIR: Path = xdg.xdg_config_home() / "googletools"
+CONFIG_DIR: Path = timtools.locations.get_user_config_dir() / "googletools"
 if not CONFIG_DIR.is_dir():
     code_src_config_dir: Path = PROJECT_DIR / "config"
     if code_src_config_dir.is_dir():

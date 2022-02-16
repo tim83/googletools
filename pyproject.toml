@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "googletools"
-version = "0.1.2"
+version = "0.2.0"
 description = ""
 authors = ["Tim Mees <tim.mees83@gmail.com>"]
 
@@ -11,7 +11,7 @@ google-api-core = "^2.5.0"
 google-auth-httplib2 = "^0.1.0"
 google-auth-oauthlib = "^0.4.6"
 google-api-python-client = "^2.36.0"
-xdg = "^5.1.1"
+timtools = {git = "https://github.com/tim83/timtools"}
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
