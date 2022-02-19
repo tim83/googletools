@@ -20,6 +20,8 @@ black = "^22.1.0"
 isort = "^5.10.1"
 bandit = "^1.7.2"
 safety = "^1.10.3"
+flake8-docstrings = "^1.6.0"
+darglint = "^1.8.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
