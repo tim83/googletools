@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.1 (2022-02-19)
+### Fix
+* **pyproject.toml:** Lower the pandas requirements ([`0d7fe56`](https://github.com/tim83/googletools/commit/0d7fe56b8797cc0272570b9e2170ae370fc27117))
+
 ## v0.3.0 (2022-02-19)
 ### Feature
 * **ci.yml:** Add automated CI (without test) ([`2c40c99`](https://github.com/tim83/googletools/commit/2c40c9992a7c2398bbda6ff38d329470abd9cf8b))
