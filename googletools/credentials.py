@@ -1,3 +1,4 @@
+"""Module for handing Google Account login"""
 from __future__ import annotations
 
 import typing
@@ -34,13 +35,13 @@ def obtain_credentials(attempt: int = 0) -> Credentials:
         if credentials and credentials.expired and credentials.refresh_token:
             try:
                 credentials.refresh(Request())
-            except google.auth.exceptions.RefreshError as e:
-                if e.args[1]["error"] == "invalid_grant" and attempt == 0:
+            except google.auth.exceptions.RefreshError as error:
+                if error.args[1]["error"] == "invalid_grant" and attempt == 0:
                     token_file.unlink()
                     obtain_credentials(attempt=attempt + 1)
                     logger.error("Error refreshing credentials, obtaining new ones.")
                 else:
-                    raise e
+                    raise error
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 str(googletools.settings.GOOGLE_CLIENT_SECRET_FILE), SCOPES
@@ -52,7 +53,7 @@ def obtain_credentials(attempt: int = 0) -> Credentials:
         if not token_dir.is_dir():
             token_dir.mkdir()
 
-        with open(token_file, "w") as token:
+        with open(token_file, "w", encoding="utf-8") as token:
             token.write(credentials.to_json())
 
     return credentials

@@ -1,3 +1,4 @@
+"""Module for interacting with Google Drive"""
 from __future__ import annotations
 
 import datetime as dt
@@ -5,7 +6,7 @@ import os
 
 import googleapiclient.discovery
 import pytz
-from apiclient.http import MediaFileUpload
+from apiclient.http import MediaFileUpload  # pylint: disable=import-error
 
 import googletools.credentials
 
@@ -39,14 +40,14 @@ def upload_file(filename: str, file_id: str = None):
 
     if file_id is None:
         file = (
-            drive_api.files()
+            drive_api.files()  # pylint: disable=no-member
             .create(body=file_metadata, media_body=media_body, fields="id")
             .execute()
         )
         file_id = file.get("ID")
         print(f"The file ID is {file_id}")
     else:
-        drive_api.files().update(
+        drive_api.files().update(  # pylint: disable=no-member
             fileId=file_id, body=file_metadata, media_body=media_body
         ).execute()
 
@@ -58,7 +59,11 @@ def modified_date(file_id: str) -> dt.datetime:
     :return: The modified time
     """
     drive_api = _load_drive_api()
-    file = drive_api.files().get(fileId=file_id, fields="modifiedTime").execute()
+    file = (
+        drive_api.files()  # pylint: disable=no-member
+        .get(fileId=file_id, fields="modifiedTime")
+        .execute()
+    )
     date_str = file.get("modifiedTime")
     date = dt.datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%fZ")
     date_utc = date.replace(tzinfo=pytz.utc)

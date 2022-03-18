@@ -1,3 +1,4 @@
+"""Module for interacting with Google Sheets"""
 from __future__ import annotations
 
 import locale
@@ -14,7 +15,7 @@ def _load_sheet_api():
     service = googleapiclient.discovery.build(
         "sheets", "v4", credentials=credentials, cache_discovery=False
     )
-    sheet = service.spreadsheets()
+    sheet = service.spreadsheets()  # pylint: disable=no-member
     return sheet
 
 

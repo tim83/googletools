@@ -1,3 +1,4 @@
+"""Settings for the googletools package"""
 from pathlib import Path
 
 import timtools.locations
