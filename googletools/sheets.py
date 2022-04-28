@@ -9,11 +9,14 @@ import pandas as pd
 import googletools.credentials
 
 
-def _load_sheet_api():
-    """Returns the API object for manipulating sheets"""
+def load_sheet_api(api_version: str = "v4"):
+    """
+    Returns the API object for manipulating sheets
+    :param api_version: The version of the API to use
+    """
     credentials = googletools.credentials.obtain_credentials()
     service = googleapiclient.discovery.build(
-        "sheets", "v4", credentials=credentials, cache_discovery=False
+        "sheets", api_version, credentials=credentials, cache_discovery=False
     )
     sheet = service.spreadsheets()  # pylint: disable=no-member
     return sheet
@@ -33,7 +36,7 @@ def import_spreadsheet(
     :param row_index: Treat the first row as a header
     :return The dataframe containing the selected data from the sheet"""
 
-    sheet = _load_sheet_api()
+    sheet = load_sheet_api()
     result = sheet.values().get(spreadsheetId=sheet_id, range=selected_range).execute()
     values = result.get("values", [])
     locale.setlocale(locale.LC_NUMERIC, "")
@@ -62,7 +65,7 @@ def export_to_sheet(sheet_id: str, selected_range: str, data: pd.DataFrame):
     :param selected_range: The range that contains the to be imported data (
     e.g. Blad1!A1:B5)
     """
-    sheet = _load_sheet_api()
+    sheet = load_sheet_api()
     sheet.values().update(
         spreadsheetId=sheet_id,
         valueInputOption="RAW",

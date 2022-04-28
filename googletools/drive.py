@@ -11,11 +11,14 @@ from apiclient.http import MediaFileUpload  # pylint: disable=import-error
 import googletools.credentials
 
 
-def _load_drive_api():
-    """Returns the API object for manipulating files"""
+def load_drive_api(api_version: str = "v3"):
+    """
+    Returns the API object for manipulating files
+    :param api_version: The version of the Drive API to return
+    """
     credentials = googletools.credentials.obtain_credentials()
     service = googleapiclient.discovery.build(
-        "drive", "v3", credentials=credentials, cache_discovery=False
+        "drive", api_version, credentials=credentials, cache_discovery=False
     )
     return service
 
@@ -32,7 +35,7 @@ def upload_file(filename: str, file_id: str = None):
     basename: str = os.path.basename(filename)
     title, _ = os.path.splitext(filename)
 
-    drive_api = _load_drive_api()
+    drive_api = load_drive_api()
 
     file_metadata = {"name": basename, "title": title}
 
@@ -58,7 +61,7 @@ def modified_date(file_id: str) -> dt.datetime:
     :param file_id: The file ID of the file
     :return: The modified time
     """
-    drive_api = _load_drive_api()
+    drive_api = load_drive_api()
     file = (
         drive_api.files()  # pylint: disable=no-member
         .get(fileId=file_id, fields="modifiedTime")
