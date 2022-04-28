@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2022-04-28)
+### Feature
+* **drive.py:** Enable specifying API version ([`927e083`](https://github.com/tim83/googletools/commit/927e083f1d6afd36cf653f3899ea62eece3148dc))
+
 ## v0.3.1 (2022-02-19)
 ### Fix
 * **pyproject.toml:** Lower the pandas requirements ([`0d7fe56`](https://github.com/tim83/googletools/commit/0d7fe56b8797cc0272570b9e2170ae370fc27117))
