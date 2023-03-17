@@ -70,5 +70,8 @@ def export_to_sheet(sheet_id: str, selected_range: str, data: pd.DataFrame):
         spreadsheetId=sheet_id,
         valueInputOption="RAW",
         range=selected_range,
-        body=dict(majorDimension="ROWS", values=data.T.reset_index().T.values.tolist()),
+        body={
+            "majorDimension": "ROWS",
+            "values": data.T.reset_index().T.values.tolist(),
+        },
     ).execute()
