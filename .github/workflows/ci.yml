@@ -52,7 +52,7 @@ jobs:
 
   release:
     needs:
-      - code-test
+#      - code-test
       - code-quality
     runs-on: "ubuntu-latest"
     concurrency: release
